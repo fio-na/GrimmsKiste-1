@@ -1,4 +1,6 @@
-from Story import story
+import yaml
+fh = open("story.yaml", mode="r", encoding="utf8")
+story = yaml.load(fh)
 
 def processState(state):
     print()
