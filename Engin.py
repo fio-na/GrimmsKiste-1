@@ -9,7 +9,7 @@ def print_to_printer(text_to_print):
     lpr.stdin.write(text_to_print)
 
 def processState(state):
-    print_to_printer()
+    print_to_printer("\n")
     print_to_printer(state["message"])
 
     if not "actions" in state:
