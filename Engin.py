@@ -1,24 +1,30 @@
 import yaml
+import subprocess
+
 fh = open("story.yaml", mode="r", encoding="utf8")
 story = yaml.load(fh)
 
+def print_to_printer(text_to_print):
+    lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
+    lpr.stdin.write(text_to_print)
+
 def processState(state):
-    print()
-    print(state["message"])
+    print_to_printer()
+    print_to_printer(state["message"])
 
     if not "actions" in state:
         return None
 
-    if "question" in state: print(state["question"])
-    else: print(story["_default_question"])
+    if "question" in state: print_to_printer(state["question"])
+    else: print_to_printer(story["_default_question"])
 
     action = requestAction(state["actions"])
     return story[action["next"]]
 
 def requestAction(actions):
-    print()
+    print_to_printer()
     for i, action in (enumerate(state["actions"], start=1)):
-        print("({}) {}".format(i, action["label"]))
+        print_to_printer("({}) {}".format(i, action["label"]))
     print()
 
     while True:
@@ -30,10 +36,10 @@ def requestAction(actions):
         except:
             pass
 
-print("Grimms Kiste".center(80, "-"))
+print_to_printer("Grimms Kiste".center(80, "-"))
 
 state = story["start"]
 while state != None:
     state = processState(state)
 
-print(80 * "-")
+print_to_printer(80 * "-")
