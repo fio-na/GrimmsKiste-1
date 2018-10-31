@@ -1,9 +1,9 @@
 ---
-_default_question: Was möchtest du tun?
+_default_question: Was moechtest du tun?
 _prompt: 'Deine Wahl: '
 start:
   message: Herzlich Wilkommen zu Grimms Kiste
-  question: Welche Geschichte möchtst du Erleben
+  question: Welche Geschichte moechtst du Erleben
   actions:
   - label: Harry Potter
     next: HP1
@@ -12,14 +12,14 @@ start:
 HP1:
   message: Harry Potter ist in kleiner Zauberer
   actions:
-  - label: Ich versuche, die Tür zu öffnen
+  - label: Ich versuche, die Tuer zu oeffnen
     next: HP2
   - label: Ich gehe rechts um die Ecke!
     next: gang2
 HP2:
-  message: Hinter der Tür ist ein Hund
+  message: Hinter der Tuer ist ein Hund
   actions:
-  - label: Ich versuche, die Tür zu öffnen
+  - label: Ich versuche, die Tuer zu oeffnen
     next: ende
   - label: Ich gehe rechts um die Ecke!
     next: gang2
