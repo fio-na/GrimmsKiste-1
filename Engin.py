@@ -7,7 +7,7 @@ story = yaml.load(fh)
 
 def print_to_printer(text_to_print):
     lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
-    lpr.stdin.write(text_to_print)
+    lpr.communicate(text_to_print)
 
 def processState(state):
     print_to_printer("\n")
