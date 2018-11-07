@@ -2,12 +2,13 @@ import yaml
 import subprocess
 import locale
 
-fh =open("story.yaml", mode="r")
+fh = open("story.yaml", mode="r", encoding="utf-8")
 story = yaml.load(fh)
 
 def print_to_printer(text_to_print):
     lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
-    lpr.stdin.write(text_to_print)
+    lpr.communicate(text_to_print.encode("utf-8"))
+    print("test")
 
 def processState(state):
     print_to_printer("\n")
