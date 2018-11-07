@@ -1,9 +1,9 @@
 ---
-_default_question: Was moechtest du tun?
+_default_question: Was möchtest du tun?
 _prompt: 'Deine Wahl: '
 start:
-  message: Herzlich Wilkommen zu Grimms Kiste
-  question: Welche Geschichte moechtst du Erleben
+  message: "Herzlich Wilkommen zu Grimms Kiste"
+  question: Welche Geschichte möchtst du Erleben
   actions:
   - label: Harry Potter
     next: HP1
