@@ -5,13 +5,11 @@ import locale
 fh = open("story.yaml", mode="r", encoding="utf-8")
 story = yaml.load(fh)
 
-def open_lpr():
-    global lpr
-    lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
+lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
 
 def print_to_printer(text_to_print):
-    open_lpr()
-    lpr.communicate(text_to_print.encode("utf-8"))
+    #lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
+    lpr.stdin.write(text_to_print.encode("utf-8"))
 
 def processState(state):
     print_to_printer("hi")
@@ -20,7 +18,6 @@ def processState(state):
 
     if not "actions" in state:
         return None
-    
     if "question" in state:
         print_to_printer(state["question"])
     else: print_to_printer(story["_default_question"])
