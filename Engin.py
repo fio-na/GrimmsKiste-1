@@ -2,17 +2,17 @@ import yaml
 import subprocess
 import locale
 
-fh =open("story.yaml", mode="r")
+fh = open("story.yaml", mode="r", encoding="utf-8")
 story = yaml.load(fh)
 
 def print_to_printer(text_to_print):
     lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
-    lpr.communicate(text_to_print)
+    lpr.communicate(text_to_print.encode("utf-8"))
 
 def processState(state):
-    print_to_printer("\n")
+    print_to_printer("hi")
+    print_to_printer("hallo")
     print_to_printer(state["message"])
-    print(2)
 
     if not "actions" in state:
         return None
@@ -28,7 +28,6 @@ def requestAction(actions):
     print_to_printer("\n")
     for i, action in (enumerate(state["actions"], start=1)):
         print_to_printer("({}) {}".format(i, action["label"]))
-    print()
 
     while True:
         try:
@@ -41,7 +40,6 @@ def requestAction(actions):
 
 
 print_to_printer("Grimms Kiste".center(80, "-"))
-print(1)
 
 state = story["start"]
 while state != None:
