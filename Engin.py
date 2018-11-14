@@ -4,9 +4,13 @@ import locale
 
 fh = open("story.yaml", mode="r", encoding="utf-8")
 story = yaml.load(fh)
-lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
+
+def open_lpr():
+    global lpr
+    lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
 
 def print_to_printer(text_to_print):
+    open_lpr()
     lpr.communicate(text_to_print.encode("utf-8"))
 
 def processState(state):
