@@ -1,15 +1,20 @@
 import yaml
 import subprocess
 import locale
+import pexpect
 
 fh = open("story.yaml", mode="r", encoding="utf-8")
 story = yaml.load(fh)
 
-lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
+#lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
+#lpr = pexpect.spawn("/usr/bin/lpr", encoding="utf-8")
+lpr = pexpect.spawn("/usr/bin/lpr")
 
 def print_to_printer(text_to_print):
     #lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
-    lpr.stdin.write(text_to_print.encode("utf-8"))
+    #lpr.stdin.write(text_to_print.encode("utf-8"))
+    #lpr.write(text_to_print.encode("utf-8"))
+    lpr.write(text_to_print)
     #if lpr.communicate is used, it prints directly when it is called. however you cannot keep the pipe open, and uf you open and close it, the pater gets cut
     #if lpr.stdin.write is used, it prints only when the program is finished, but if you open lpr in the beginning of the process you can print multiple things without the paper being cut
 
