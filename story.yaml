@@ -24,4 +24,4 @@ HP2:
   - label: Ich gehe rechts um die Ecke!
     next: gang2
 ende:
-  message: Damit ist das Spiel zu Ende. Auf Wiedersehen.
+  message: Damit ist das Spiel zu Endeoder? Auf Wiedersehen.
