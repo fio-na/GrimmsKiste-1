@@ -54,13 +54,11 @@ def requestAction(actions):
             print_empty_lines()
         else:
             send_to_printer("({}) {}".format(i, action["label"]))
-
     while True:
         try:
             choice = int(input(story["_prompt"])) - 1
             if 0 <= choice < len(actions):
                 return actions[choice]
-
         except:
             pass
 
