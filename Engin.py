@@ -1,10 +1,20 @@
 import yaml
 import subprocess
 import textwrap
+import RPi.GPIO as GPIO
+import time
 #pyphen
 
 fh = open("story.yaml", mode="r", encoding="utf-8")
 story = yaml.load(fh)
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+def callback_restart():
+    restart_engine()
+
+GPIO.add_event_detect(5, GPIO.RISING, callback=callback_restart, bouncetime=500)
 
 def send_to_printer(text_to_print):
     formatted_text = format_text(text_to_print)
@@ -55,16 +65,28 @@ def requestAction(actions):
         else:
             send_to_printer("({}) {}".format(i, action["label"]))
     while True:
-        try:
-            choice = int(input(story["_prompt"])) - 1
-            if 0 <= choice < len(actions):
-                return actions[choice]
-        except:
-            pass
+        eingabe = input(story["_prompt"])
+        if eingabe == "Ende" or eingabe == "ende":
+            raise SystemExit("Ende")
+        else:
+            try:
+                choice = int(eingabe) - 1
+                if 0 <= choice < len(actions):
+                    return actions[choice]
+            except:
+                pass
 
+def restart_engine():
+    #send_to_printer_with_cut(80 * "-")
+    send_to_printer("Grimms Kiste".center(80, "-"))
+    global state
+    state = story["start"]
+    while state != None:
+        state = processState(state)
 
 send_to_printer("Grimms Kiste".center(80, "-"))
 
 state = story["start"]
 while state != None:
     state = processState(state)
+
