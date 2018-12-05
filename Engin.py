@@ -9,16 +9,20 @@ fh = open("story.yaml", mode="r", encoding="utf-8")
 story = yaml.load(fh)
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-def callback_restart():
+def callback_restart(self):
+    print("Knopf gedrückt")
     restart_engine()
 
-GPIO.add_event_detect(5, GPIO.RISING, callback=callback_restart, bouncetime=500)
+GPIO.add_event_detect(6, GPIO.RISING, callback=callback_restart, bouncetime=500)
 
 def send_to_printer(text_to_print):
     formatted_text = format_text(text_to_print)
+    print(formatted_text)
     for i in formatted_text:
+        print(i)
+        print(i.encode("utf-8"))
         lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc"], stdin=subprocess.PIPE)
         lpr.communicate(i.encode("utf-8"))
 
@@ -37,9 +41,10 @@ def format_text(text_to_print):
     return formatted_text
 
 def print_empty_lines():
-    for i in range(7):
-        lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc"], stdin=subprocess.PIPE)
-        lpr.communicate("a".encode("utf-8"))
+    send_to_printer("strhtzhjhzukmuzkfgt dru  hjkghkkkkkkllfzu e46te5 fggggggggggg kzu8fzukzuk fzukzukzuk rsduuuuuu4s5u65u cghjgghjghj zkfuzkuk sez55zzer gvkuzk fzuk")
+    lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc", "-o", "PageType=1Fixed"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    result = lpr.communicate("Test".encode("utf-8"))
+    print(result)
 
 def processState(state):
     if state == story["ende"]:
