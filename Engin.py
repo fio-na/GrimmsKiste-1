@@ -1,21 +1,12 @@
 import yaml
 import subprocess
 import textwrap
-import RPi.GPIO as GPIO
+import os
 import time
 #pyphen
 
 fh = open("story.yaml", mode="r", encoding="utf-8")
 story = yaml.load(fh)
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-
-def callback_restart(self):
-    print("Knopf gedrückt")
-    restart_engine()
-
-GPIO.add_event_detect(6, GPIO.RISING, callback=callback_restart, bouncetime=500)
 
 def send_to_printer(text_to_print):
     formatted_text = format_text(text_to_print)
@@ -41,7 +32,7 @@ def format_text(text_to_print):
     return formatted_text
 
 def print_empty_lines():
-    send_to_printer("strhtzhjh esrhreajh jzujtuik8zi8lkoloil 435qzuqz4tw5zr6hzjukti z89p8zpot7irt6ue5z4 q3t43aaaaaaaaaaaaaaaae65uuuuu 6r7iii87o89oi465tf43rf q34t45z5tz64w5z")
+    #send_to_printer("strhtzhjh esrhreajh jzujtuik8zi8lkoloil 435qzuqz4tw5zr6hzjukti z89p8zpot7irt6ue5z4 q3t43aaaaaaaaaaaaaaaae65uuuuu 6r7iii87o89oi465tf43rf q34t45z5tz64w5z")
     lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc", "-o", "PageType=1Fixed"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     result = lpr.communicate("Test".encode("utf-8"))
     print(result)
@@ -81,13 +72,7 @@ def requestAction(actions):
             except:
                 pass
 
-def restart_engine():
-    send_to_printer_with_cut(80 * "-")
-    send_to_printer("Grimms Kiste".center(80, "-"))
-    global state
-    state = story["start"]
-    while state != None:
-        state = processState(state)
+os.system("~/GrimmsKiste-1/restart-button.py")
 
 send_to_printer("Grimms Kiste".center(80, "-"))
 
