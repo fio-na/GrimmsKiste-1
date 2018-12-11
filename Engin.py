@@ -41,7 +41,7 @@ def format_text(text_to_print):
     return formatted_text
 
 def print_empty_lines():
-    send_to_printer("strhtzhjhzukmuzkfgt dru  hjkghkkkkkkllfzu e46te5 fggggggggggg kzu8fzukzuk fzukzukzuk rsduuuuuu4s5u65u cghjgghjghj zkfuzkuk sez55zzer gvkuzk fzuk")
+    send_to_printer("strhtzhjh esrhreajh jzujtuik8zi8lkoloil 435qzuqz4tw5zr6hzjukti z89p8zpot7irt6ue5z4 q3t43aaaaaaaaaaaaaaaae65uuuuu 6r7iii87o89oi465tf43rf q34t45z5tz64w5z")
     lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc", "-o", "PageType=1Fixed"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     result = lpr.communicate("Test".encode("utf-8"))
     print(result)
@@ -82,7 +82,7 @@ def requestAction(actions):
                 pass
 
 def restart_engine():
-    #send_to_printer_with_cut(80 * "-")
+    send_to_printer_with_cut(80 * "-")
     send_to_printer("Grimms Kiste".center(80, "-"))
     global state
     state = story["start"]
