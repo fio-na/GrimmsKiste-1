@@ -72,6 +72,7 @@ def requestAction(actions):
             except:
                 pass
 
+"""
 os.system("~/GrimmsKiste-1/restart-button.py")
 
 send_to_printer("Grimms Kiste".center(80, "-"))
@@ -79,4 +80,6 @@ send_to_printer("Grimms Kiste".center(80, "-"))
 state = story["start"]
 while state != None:
     state = processState(state)
+"""
 
+state = story["start"]
