@@ -2,18 +2,46 @@ import yaml
 import subprocess
 import textwrap
 import os
+import RPi.GPIO as GPIO
 import time
 #pyphen
 
 fh = open("story.yaml", mode="r", encoding="utf-8")
 story = yaml.load(fh)
 
+GPIO.setmode(GPIO.BCM)
+
+# this enables us to demonstrate both rising and falling edge detection
+GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+curr=0
+
+def callback_1(channel):
+    global curr
+    curr=1
+def callback_2(channel):
+    global curr
+    curr=2
+def callback_3(channel):
+    global curr
+    curr=3
+def callback_4(channel):
+    global curr
+    curr=4
+
+GPIO.add_event_detect(5, GPIO.RISING, callback=callback_4, bouncetime=500)
+GPIO.add_event_detect(6, GPIO.RISING, callback=callback_3, bouncetime=500)
+GPIO.add_event_detect(13, GPIO.RISING, callback=callback_2, bouncetime=500)
+GPIO.add_event_detect(19, GPIO.RISING, callback=callback_1, bouncetime=500)
+
 def send_to_printer(text_to_print):
     formatted_text = format_text(text_to_print)
     print(formatted_text)
     for i in formatted_text:
         print(i)
-        print(i.encode("utf-8"))
+        #print(i.encode("utf-8"))
         lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc"], stdin=subprocess.PIPE)
         lpr.communicate(i.encode("utf-8"))
 
@@ -60,7 +88,7 @@ def requestAction(actions):
             print_empty_lines()
         else:
             send_to_printer("({}) {}".format(i, action["label"]))
-    while True:
+    """while True:
         eingabe = input(story["_prompt"])
         if eingabe == "Ende" or eingabe == "ende":
             raise SystemExit("Ende")
@@ -70,12 +98,30 @@ def requestAction(actions):
                 if 0 <= choice < len(actions):
                     return actions[choice]
             except:
+                pass"""
+    while True:
+        #global curr
+        #global last
+        """if curr == last and curr != 0:
+            pass
+        elif curr == 0:
+            global last
+            last = 0"""
+        if True:
+            try:
+                choice = curr - 1
+                if 0 <= choice < len(actions):
+                    global curr
+                    curr = 0
+                    return actions[choice]
+            except:
                 pass
 
 
-os.system("~/GrimmsKiste-1/restart-button.py")
+#os.system("~/GrimmsKiste-1/restart-button.py")
 
 send_to_printer("Grimms Kiste".center(80, "-"))
+last = 0
 
 state = story["start"]
 while state != None:

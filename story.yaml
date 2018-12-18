@@ -19,9 +19,16 @@ HP1:
 HP2:
   message: Hinter der Tuer ist ein Hund
   actions:
-  - label: Ich versuche, die Tuer zu oeffnen
+  - label: Ich streichle den Hund
     next: ende
-  - label: Ich gehe rechts um die Ecke!
-    next: gang2
+  - label: Ich gehe weiter geradeaus!
+    next: gang3
+HdR1:
+  message: Gandalf ist ein Zaberer
+  actions:
+  - label: ich gehe nach links
+    next: HdR2
+  - label: ich gehe nach vorne
+    next: HdR3
 ende:
   message: Damit ist das Spiel zu Endeoder? Auf Wiedersehen.
