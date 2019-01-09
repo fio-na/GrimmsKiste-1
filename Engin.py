@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import yaml
 import subprocess
 import textwrap
@@ -6,16 +7,16 @@ import RPi.GPIO as GPIO
 import time
 #pyphen
 
-fh = open("story.yaml", mode="r", encoding="utf-8")
+fh = open("/home/pi/GrimmsKiste-1/story.yaml", mode="r", encoding="utf-8")
 story = yaml.load(fh)
 
 GPIO.setmode(GPIO.BCM)
 
 # this enables us to demonstrate both rising and falling edge detection
-GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 curr=0
 
 def callback_1(channel):
@@ -31,10 +32,10 @@ def callback_4(channel):
     global curr
     curr=4
 
-GPIO.add_event_detect(5, GPIO.RISING, callback=callback_4, bouncetime=500)
-GPIO.add_event_detect(6, GPIO.RISING, callback=callback_3, bouncetime=500)
-GPIO.add_event_detect(13, GPIO.RISING, callback=callback_2, bouncetime=500)
-GPIO.add_event_detect(19, GPIO.RISING, callback=callback_1, bouncetime=500)
+GPIO.add_event_detect(5, GPIO.RISING, callback=callback_1, bouncetime=500)
+GPIO.add_event_detect(6, GPIO.RISING, callback=callback_2, bouncetime=500)
+GPIO.add_event_detect(13, GPIO.RISING, callback=callback_3, bouncetime=500)
+GPIO.add_event_detect(19, GPIO.RISING, callback=callback_4, bouncetime=500)
 
 def send_to_printer(text_to_print):
     formatted_text = format_text(text_to_print)
