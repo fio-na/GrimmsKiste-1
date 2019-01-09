@@ -3,18 +3,22 @@ import yaml
 import subprocess
 import textwrap
 import RPi.GPIO as GPIO
+import os
+
+fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
+yaml.dump(os.getpid(), fp, indent=1)
 
 fh = open("/home/pi/GrimmsKiste-1/story.yaml", mode="r", encoding="utf-8")
 story = yaml.load(fh)
 
+curr=0
+
 GPIO.setmode(GPIO.BCM)
 
-# this enables us to demonstrate both rising and falling edge detection
 GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-curr=0
 
 def callback_1(channel):
     global curr
@@ -52,8 +56,7 @@ def format_text(text_to_print):
 
 def print_empty_lines():
     lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc", "-o", "PageType=1Fixed"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    result = lpr.communicate("Test".encode("utf-8"))
-    print(result)
+    lpr.communicate("|".encode("utf-8"))
 
 def processState(state):
     if state == story["ende"]:
@@ -77,21 +80,10 @@ def requestAction(actions):
             print_empty_lines()
         else:
             send_to_printer("({}) {}".format(i, action["label"]))
-    """while True:
-        eingabe = input(story["_prompt"])
-        if eingabe == "Ende" or eingabe == "ende":
-            raise SystemExit("Ende")
-        else:
-            try:
-                choice = int(eingabe) - 1
-                if 0 <= choice < len(actions):
-                    return actions[choice]
-            except:
-                pass"""
     while True:
-        #global curr
-        #global last
-        """if curr == last and curr != 0:
+        """global curr
+        global last
+        if curr == last and curr != 0:
             pass
         elif curr == 0:
             global last
@@ -107,6 +99,7 @@ def requestAction(actions):
                 pass
 
 
+send_to_printer_with_cut(28 * "-")
 send_to_printer("Grimms Kiste".center(80, "-"))
 last = 0
 
