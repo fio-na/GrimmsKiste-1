@@ -10,9 +10,9 @@ fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
 yaml.dump(os.getpid(), fp, indent=1)
 
 geschichten = {}
-a = open("start.yaml", mode="r", encoding="utf8")
-b = open("Maus.yaml", mode="r", encoding="utf8")
-c = open("story.yaml", mode="r", encoding="utf8")
+a = open("/home/pi/GrimmsKiste-1/start.yaml", mode="r", encoding="utf8")
+b = open("/home/pi/GrimmsKiste-1/Maus.yaml", mode="r", encoding="utf8")
+c = open("/home/pi/GrimmsKiste-1/story.yaml", mode="r", encoding="utf8")
 
 A1 = yaml.load(a)
 B1 = yaml.load(b)
@@ -31,8 +31,8 @@ GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
-yaml.dump(os.getpid(), fp, indent=1)
+#fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
+#yaml.dump(os.getpid(), fp, indent=1)
 
 global start_time
 start_time = time.time() - 3
@@ -66,7 +66,6 @@ def callback_4(channel):
     a = end_time - start_time
     global start_time
     start_time = end_time
-    print(a)
     if a>3:
         global curr
         curr=4
@@ -133,6 +132,9 @@ def requestAction(actions):
                     global curr
                     curr = 0
                     return actions[choice]
+                '''elif choice > len(actions):
+                    global start_time
+                    print("ich wurde gedrückt")'''
             except:
                 pass
 

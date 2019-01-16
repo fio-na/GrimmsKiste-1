@@ -1,34 +1,17 @@
----
-_default_question: Was möchtest du tun?
-_prompt: 'Deine Wahl: '
-start:
-  message: "Herzlich Wilkommen zu Grimms Kiste"
-  question: Welche Geschichte möchtst du Erleben
+metadaten:
+  hersteller: Andi Schreiner
+  Datum:
+HdR1:
+  message: Frodo ist ein Gnome
   actions:
-  - label: Harry Potter
-    next: HP1
-  - label: Herr der Ringe
-    next: HdR1
-HP1:
-  message: Harry Potter ist in kleiner Zauberer
-  actions:
-  - label: Ich versuche, die Tuer zu oeffnen
+  - label: Ich versuche, die Tür zu öffnen
     next: HP2
   - label: Ich gehe rechts um die Ecke!
     next: gang2
 HP2:
-  message: Hinter der Tuer ist ein Hund
+  message: Hinter der Tür ist ein Hund
   actions:
-  - label: Ich streichle den Hund
+  - label: Ich versuche, die Tür zu öffnen
     next: ende
-  - label: Ich gehe weiter geradeaus!
-    next: gang3
-HdR1:
-  message: Gandalf ist ein Zaberer
-  actions:
-  - label: ich gehe nach links
-    next: HdR2
-  - label: ich gehe nach vorne
-    next: HdR3
-ende:
-  message: Damit ist das Spiel zu Endeoder? Auf Wiedersehen.
+  - label: Ich gehe rechts um die Ecke!
+next: gang2

@@ -1,0 +1,31 @@
+---
+_default_question: Was möchtest du tun?
+_prompt: 'Deine Wahl: '
+start:
+  message: "Herzlich Wilkommen zu\nGrimms Kiste"
+  question: Welche Geschichte möchtst du Erleben?
+  actions:
+  - label: Harry Potter
+    next: HP1
+  - label: Herr der Ringe
+    next: HdR1
+  - label: Eragon
+    next: ER1
+  - label: Mehr Geschichten
+    next: S2
+S2:
+  message: Geschichten 4-6
+  question: Welche Geschichte möchtest du Erleben?
+  actions:
+  - label:
+    next:
+  - label:
+    next:
+  - label:
+    next:
+  - label: Zurück zu den ersten Geschichten
+    next: start
+
+
+ende:
+message: Damit ist das Spiel zu Ende.
