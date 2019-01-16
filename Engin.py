@@ -20,18 +20,45 @@ GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
+fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
+yaml.dump(os.getpid(), fp, indent=1)
+
+global start_time
+start_time = time.time() - 3
+
 def callback_1(channel):
-    global curr
-    curr=1
+    end_time = time.time()
+    a = end_time - start_time
+    global start_time
+    start_time = end_time
+    if a > 3:
+        global curr
+        curr=1
 def callback_2(channel):
-    global curr
-    curr=2
+    end_time = time.time()
+    a = end_time - start_time
+    global start_time
+    start_time = end_time
+    if a>3:
+        global curr
+        curr=2
 def callback_3(channel):
-    global curr
-    curr=3
+    end_time = time.time()
+    a = end_time - start_time
+    global start_time
+    start_time = end_time
+    if a>3:
+        global curr
+        curr=3
 def callback_4(channel):
-    global curr
-    curr=4
+    end_time = time.time()
+    a = end_time - start_time
+    global start_time
+    start_time = end_time
+    print(a)
+    if a>3:
+        global curr
+        curr=4
 
 GPIO.add_event_detect(5, GPIO.RISING, callback=callback_1, bouncetime=500)
 GPIO.add_event_detect(6, GPIO.RISING, callback=callback_2, bouncetime=500)
