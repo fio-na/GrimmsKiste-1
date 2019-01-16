@@ -37,7 +37,7 @@ GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 global start_time
 start_time = time.time() - 3
 
-def check_time_since_last_buttonpush():
+def check_time_since_last_push_of_a_button():
     end_time = time.time()
     a = end_time - start_time
     global start_time
@@ -45,23 +45,23 @@ def check_time_since_last_buttonpush():
     return a
 
 def callback_1(channel):
-    a = check_time_since_last_buttonpush()
+    a = check_time_since_last_push_of_a_button()
     if a > 3:
         global curr
         curr=1
 
 def callback_2(channel):
-    a = check_time_since_last_buttonpush()
+    a = check_time_since_last_push_of_a_button()
     if a>3:
         global curr
         curr=2
 def callback_3(channel):
-    a = check_time_since_last_buttonpush()
+    a = check_time_since_last_push_of_a_button()
     if a>3:
         global curr
         curr=3
 def callback_4(channel):
-    a = check_time_since_last_buttonpush()
+    a = check_time_since_last_push_of_a_button()
     if a>3:
         global curr
         curr=4
@@ -71,7 +71,27 @@ GPIO.add_event_detect(6, GPIO.RISING, callback=callback_2, bouncetime=500)
 GPIO.add_event_detect(13, GPIO.RISING, callback=callback_3, bouncetime=500)
 GPIO.add_event_detect(19, GPIO.RISING, callback=callback_4, bouncetime=500)
 
-def send_to_printer(text_to_print):
+"""def send_to_printer2(text_to_print, type_of_printing):
+    formatted_text = format_text(text_to_print)
+    print(formatted_text)
+    for i in formatted_text:
+        
+    if formatted_text[-1]
+    if type_of_printing == "NoCutNoEmptyLines":
+        formatted_text = format_text(text_to_print)
+        print(formatted_text)
+        for i in formatted_text:
+            print(i)
+            lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc"], stdin=subprocess.PIPE)
+            lpr.communicate(i.encode("utf-8"))
+    if type_of_printing == "WithCut":
+        lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
+        lpr.communicate(text_to_print.encode("utf-8"))
+    if type_of_printing == "WithEmptyLines":
+        lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc", "-o", "PageType=1Fixed"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        lpr.communicate("|".encode("utf-8"))"""
+
+def send_to_printer_old(text_to_print):
     formatted_text = format_text(text_to_print)
     print(formatted_text)
     for i in formatted_text:
@@ -93,15 +113,15 @@ def format_text(text_to_print):
 
 def processState(state):
     if state == story["ende"]:
-        send_to_printer(state["message"])
+        send_to_printer_old(state["message"])
         send_to_printer_with_cut(80 * "-")
     else:
-        send_to_printer(state["message"])
+        send_to_printer_old(state["message"])
     if not "actions" in state:
         return None
     if "question" in state:
-        send_to_printer(state["question"])
-    else: send_to_printer(story["_default_question"])
+        send_to_printer_old(state["question"])
+    else: send_to_printer_old(story["_default_question"])
 
     action = requestAction(state["actions"])
     return story[action["next"]]
@@ -109,10 +129,10 @@ def processState(state):
 def requestAction(actions):
     for i, action in (enumerate(state["actions"], start=1)):
         if i == len(state["actions"]):
-            send_to_printer("({}) {}".format(i, action["label"]))
+            send_to_printer_old("({}) {}".format(i, action["label"]))
             print_empty_lines()
         else:
-            send_to_printer("({}) {}".format(i, action["label"]))
+            send_to_printer_old("({}) {}".format(i, action["label"]))
     while True:
         """global curr
         global last
@@ -136,7 +156,7 @@ def requestAction(actions):
 
 
 send_to_printer_with_cut(28 * "-")
-send_to_printer("Grimms Kiste".center(80, "-"))
+send_to_printer_old("Grimms Kiste".center(80, "-"))
 last = 0
 
 state = story["start"]
