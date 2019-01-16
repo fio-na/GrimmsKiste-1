@@ -8,8 +8,18 @@ import os
 fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
 yaml.dump(os.getpid(), fp, indent=1)
 
-fh = open("/home/pi/GrimmsKiste-1/story.yaml", mode="r", encoding="utf-8")
-story = yaml.load(fh)
+geschichten = {}
+a = open("start.yaml", mode="r", encoding="utf8")
+b = open("Maus.yaml", mode="r", encoding="utf8")
+c = open("story.yaml", mode="r", encoding="utf8")
+
+A1 = yaml.load(a)
+B1 = yaml.load(b)
+C1 = yaml.load(c)
+geschichten.update(A1)
+geschichten.update(B1)
+geschichten.update(C1)
+story = geschichten
 
 curr=0
 
