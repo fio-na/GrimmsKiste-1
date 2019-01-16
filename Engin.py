@@ -9,7 +9,7 @@ import time
 fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
 yaml.dump(os.getpid(), fp, indent=1)
 
-geschichten = {}
+stories = {}
 a = open("/home/pi/GrimmsKiste-1/start.yaml", mode="r", encoding="utf8")
 b = open("/home/pi/GrimmsKiste-1/Maus.yaml", mode="r", encoding="utf8")
 c = open("/home/pi/GrimmsKiste-1/story.yaml", mode="r", encoding="utf8")
@@ -17,10 +17,10 @@ c = open("/home/pi/GrimmsKiste-1/story.yaml", mode="r", encoding="utf8")
 A1 = yaml.load(a)
 B1 = yaml.load(b)
 C1 = yaml.load(c)
-geschichten.update(A1)
-geschichten.update(B1)
-geschichten.update(C1)
-story = geschichten
+stories.update(A1)
+stories.update(B1)
+stories.update(C1)
+story = stories
 
 curr=0
 
@@ -37,35 +37,31 @@ GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 global start_time
 start_time = time.time() - 3
 
-def callback_1(channel):
+def check_time_since_last_buttonpush():
     end_time = time.time()
     a = end_time - start_time
     global start_time
     start_time = end_time
+    return a
+
+def callback_1(channel):
+    a = check_time_since_last_buttonpush()
     if a > 3:
         global curr
         curr=1
+
 def callback_2(channel):
-    end_time = time.time()
-    a = end_time - start_time
-    global start_time
-    start_time = end_time
+    a = check_time_since_last_buttonpush()
     if a>3:
         global curr
         curr=2
 def callback_3(channel):
-    end_time = time.time()
-    a = end_time - start_time
-    global start_time
-    start_time = end_time
+    a = check_time_since_last_buttonpush()
     if a>3:
         global curr
         curr=3
 def callback_4(channel):
-    end_time = time.time()
-    a = end_time - start_time
-    global start_time
-    start_time = end_time
+    a = check_time_since_last_buttonpush()
     if a>3:
         global curr
         curr=4
@@ -87,13 +83,13 @@ def send_to_printer_with_cut(text_to_print):
     lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
     lpr.communicate(text_to_print.encode("utf-8"))
 
-def format_text(text_to_print):
-    formatted_text = textwrap.wrap(text_to_print, 28)
-    return formatted_text
-
 def print_empty_lines():
     lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc", "-o", "PageType=1Fixed"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     lpr.communicate("|".encode("utf-8"))
+
+def format_text(text_to_print):
+    formatted_text = textwrap.wrap(text_to_print, 28)
+    return formatted_text
 
 def processState(state):
     if state == story["ende"]:

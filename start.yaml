@@ -2,7 +2,7 @@
 _default_question: Was möchtest du tun?
 _prompt: 'Deine Wahl: '
 start:
-  message: "Herzlich Wilkommen zu\nGrimms Kiste"
+  message: Herzlich Wilkommen zu Grimms Kiste
   question: Welche Geschichte möchtst du Erleben?
   actions:
   - label: Harry Potter
@@ -17,8 +17,6 @@ S2:
   message: Geschichten 4-6
   question: Welche Geschichte möchtest du Erleben?
   actions:
-  - label:
-    next:
   - label:
     next:
   - label:
