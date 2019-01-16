@@ -4,6 +4,7 @@ import subprocess
 import textwrap
 import RPi.GPIO as GPIO
 import os
+import time
 
 fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
 yaml.dump(os.getpid(), fp, indent=1)
