@@ -6,8 +6,13 @@ import RPi.GPIO as GPIO
 import os
 import time
 
+time.sleep(2)
+
 fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
 yaml.dump(os.getpid(), fp, indent=1)
+
+log = open("/home/pi/engine.log", mode="a", encoding="utf8", buffering=1)
+log.write("Neustart\n")
 
 stories = {}
 a = open("/home/pi/GrimmsKiste-1/start.yaml", mode="r", encoding="utf8")
@@ -38,38 +43,52 @@ global start_time
 start_time = time.time() - 3
 
 def check_time_since_last_push_of_a_button():
+    global start_time
     end_time = time.time()
     a = end_time - start_time
-    global start_time
     start_time = end_time
     return a
 
 def callback_1(channel):
+    global curr
+    print("gedrückt1", time.time())
+    log.write("gedrückt 1\n")
     a = check_time_since_last_push_of_a_button()
     if a > 3:
-        global curr
         curr=1
 
 def callback_2(channel):
+    global curr
+    print("gedrückt2", time.time())
+    log.write("gedrückt 2\n")
     a = check_time_since_last_push_of_a_button()
     if a>3:
-        global curr
         curr=2
 def callback_3(channel):
-    a = check_time_since_last_push_of_a_button()
-    if a>3:
-        global curr
-        curr=3
+    global curr
+    print("gedrückt3", time.time())
+    log.write("gedrückt 3\n")
+    state = GPIO.input(13)
+    log.write("State: {}\n".format(state))
+    if state==0: 
+        a = check_time_since_last_push_of_a_button()
+        if a>3:
+            curr=3
+    elif state==1 and curr==3:
+        log.write("ACTION 3\n")
+
 def callback_4(channel):
+    global curr
+    print("gedrückt4", time.time())
+    log.write("gedrückt 4\n")
     a = check_time_since_last_push_of_a_button()
     if a>3:
-        global curr
         curr=4
 
-GPIO.add_event_detect(5, GPIO.RISING, callback=callback_1, bouncetime=500)
-GPIO.add_event_detect(6, GPIO.RISING, callback=callback_2, bouncetime=500)
-GPIO.add_event_detect(13, GPIO.RISING, callback=callback_3, bouncetime=500)
-GPIO.add_event_detect(19, GPIO.RISING, callback=callback_4, bouncetime=500)
+GPIO.add_event_detect(5, GPIO.RISING, callback=callback_1, bouncetime=200)
+GPIO.add_event_detect(6, GPIO.RISING, callback=callback_2, bouncetime=1000)
+GPIO.add_event_detect(13, GPIO.BOTH, callback=callback_3, bouncetime=50)
+GPIO.add_event_detect(19, GPIO.RISING, callback=callback_4, bouncetime=1000)
 
 """def send_to_printer2(text_to_print, type_of_printing):
     formatted_text = format_text(text_to_print)
@@ -123,10 +142,13 @@ def processState(state):
         send_to_printer_old(state["question"])
     else: send_to_printer_old(story["_default_question"])
 
-    action = requestAction(state["actions"])
-    return story[action["next"]]
+    while True:
+        action = requestAction(state["actions"])
+        if action["next"] in story:
+            return story[action["next"]]
 
 def requestAction(actions):
+    global curr
     for i, action in (enumerate(state["actions"], start=1)):
         if i == len(state["actions"]):
             send_to_printer_old("({}) {}".format(i, action["label"]))
@@ -140,19 +162,16 @@ def requestAction(actions):
             pass
         elif curr == 0:
             global last
-            last = 0"""
-        if True:
-            try:
-                choice = curr - 1
-                if 0 <= choice < len(actions):
-                    global curr
-                    curr = 0
-                    return actions[choice]
-                '''elif choice > len(actions):
-                    global start_time
-                    print("ich wurde gedrückt")'''
-            except:
-                pass
+        last = 0"""
+        choice = curr - 1
+        if 0 <= choice < len(actions):
+            curr = 0
+            if choice in actions:
+                return actions[choice]
+        time.sleep(0.01)
+        '''elif choice > len(actions):
+            global start_time
+            print("ich wurde gedrückt")'''
 
 
 send_to_printer_with_cut(28 * "-")
