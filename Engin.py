@@ -5,8 +5,10 @@ import textwrap
 import RPi.GPIO as GPIO
 import os
 import time
+from gpiozero import Button
+import signal
 
-time.sleep(2)
+#time.sleep(2)
 
 fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
 yaml.dump(os.getpid(), fp, indent=1)
@@ -29,12 +31,17 @@ story = stories
 
 curr=0
 
-GPIO.setmode(GPIO.BCM)
-
+"""GPIO.setmode(GPIO.BCM)
 GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+#GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)"""
+
+button1 = Button(5, hold_time=0.6)
+button2 = Button(6, hold_time=0.6)
+button3 = Button(13, hold_time=0.6)
+#button3 = Button(13, hold_time=0.1)
+button4 = Button(19, hold_time=0.6)
 
 #fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
 #yaml.dump(os.getpid(), fp, indent=1)
@@ -49,7 +56,7 @@ def check_time_since_last_push_of_a_button():
     start_time = end_time
     return a
 
-def callback_1(channel):
+"""def callback_1(channel):
     global curr
     print("gedrückt1", time.time())
     log.write("gedrückt 1\n")
@@ -83,12 +90,37 @@ def callback_4(channel):
     log.write("gedrückt 4\n")
     a = check_time_since_last_push_of_a_button()
     if a>3:
-        curr=4
+        curr=4"""
 
-GPIO.add_event_detect(5, GPIO.RISING, callback=callback_1, bouncetime=200)
+def callback_1():
+    sec = time.time()
+    log.write("{}, : gedrückt 1\n".format(sec))
+
+def callback_2():
+    sec = time.time()
+    log.write("{}, : gedrückt 2\n".format(sec))
+
+def callback_3():
+    global button3
+    sec = time.time()
+    log.write("{}, : gedrückt 3\n".format(sec))
+    dauer = button3.active_time
+    log.write("active_time: {}\n".format(dauer))
+
+def callback_4():
+    sec = time.time()
+    log.write("{}, : gedrückt 4\n".format(sec))
+
+"""GPIO.add_event_detect(5, GPIO.RISING, callback=callback_1, bouncetime=200)
 GPIO.add_event_detect(6, GPIO.RISING, callback=callback_2, bouncetime=1000)
-GPIO.add_event_detect(13, GPIO.BOTH, callback=callback_3, bouncetime=50)
-GPIO.add_event_detect(19, GPIO.RISING, callback=callback_4, bouncetime=1000)
+#GPIO.add_event_detect(13, GPIO.BOTH, callback=callback_3, bouncetime=50)
+GPIO.add_event_detect(19, GPIO.RISING, callback=callback_4, bouncetime=1000)"""
+
+button1.when_held = callback_1
+button2.when_held = callback_2
+button3.when_held = callback_3
+#button3.when_pressed = callback_3
+button4.when_held = callback_4
 
 """def send_to_printer2(text_to_print, type_of_printing):
     formatted_text = format_text(text_to_print)
@@ -168,7 +200,8 @@ def requestAction(actions):
             curr = 0
             if choice in actions:
                 return actions[choice]
-        time.sleep(0.01)
+        #time.sleep(0.01)
+        signal.pause()
         '''elif choice > len(actions):
             global start_time
             print("ich wurde gedrückt")'''
