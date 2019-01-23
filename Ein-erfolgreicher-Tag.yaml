@@ -1,0 +1,22 @@
+﻿info: Nach jeden Doppelpunkt muss ein Leerzeichen sein.
+metadaten: 
+  Hersteller: Schreibwerkstatt
+  Datum:
+Ein erfolgreicher Tag:
+  message: Es war einmal ein einsames Pferd. Das lief an einen Fluss vorbei und guckte hinein. Dort sah es einen Fisch. Es wollte gerne Freunde finden, war aber leider auch sehr schüchtern. So lief das Pferd weiter in einen Wald und lief an einen Turm vorbei und sah ein Schloss. Doch es fürchtete sich und lief weiter. Es hatte Durst und fand eine Tränke. Dort trank es glücklich. Dann lief das Pferd weiter und fand ein leeres, altes Haus. Doch auch davor hatte es Angst und ist weitergelaufen. Auf einmal sah das Pferd eine Person.
+  question: Soll das Pferd die Person ansprechen?
+  actions:
+  - label: Person ansprechen
+    next: Person 
+  - label: Person nicht ansprechen
+    next: Nicht ansprechen
+Person: 
+  message: Das Pferd sprach die Person und fragte nach Informationen über einen Diamanten. Denn es sammelt gerne glitzernde Dinge. Und tatsächich hatte die Person Informationen. Sie gingen zusammen weiter und suchten den Diamant, aber fanden ihn dann leider doch nicht.
+  actions:
+  - label: Damit ist das Spiel zu ende
+    next: ende
+Nicht ansprechen: 
+  message: Das Pferd sprach die Person nicht und ist weiter gelaufen. Dann fand es ein Zelt. Dort ruhte es sich aus. Am nächsten Morgen lag dort ein Diamant. Das Pferd liebte glitzernde Dinge und war sehr glücklich über den Fund.nem neuen Schatz nach Hause.
+  actions:
+  - label: Damit ist das Spiel zu ende
+    next: ende

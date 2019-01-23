@@ -18,15 +18,24 @@ log.write("Neustart\n")
 
 stories = {}
 a = open("/home/pi/GrimmsKiste-1/start.yaml", mode="r", encoding="utf8")
-b = open("/home/pi/GrimmsKiste-1/Maus.yaml", mode="r", encoding="utf8")
-c = open("/home/pi/GrimmsKiste-1/story.yaml", mode="r", encoding="utf8")
+b = open("/home/pi/GrimmsKiste-1/Das-Baby-ist-verschwunden.yaml", mode="r", encoding="utf8")
+c = open("/home/pi/GrimmsKiste-1/Das-unerwartete-Feuer.yaml", mode="r", encoding="utf8")
+d = open("/home/pi/GrimmsKiste-1/Ein-erfolgreicher-Tag.yaml", mode="r", encoding="utf8")
+e = open("/home/pi/GrimmsKiste-1/Ein-Hund-namens-Bello.yaml", mode="r", encoding="utf8")
+#f = open("/home/pi/GrimmsKiste-1/Nur-mal-kurz-die-Welt-retten.yaml", mode="r", encoding="utf8")
 
 A1 = yaml.load(a)
 B1 = yaml.load(b)
 C1 = yaml.load(c)
+D1 = yaml.load(d)
+E1 = yaml.load(e)
+#F1 = yaml.load(f)
 stories.update(A1)
 stories.update(B1)
 stories.update(C1)
+stories.update(D1)
+stories.update(E1)
+#stories.update(F1)
 story = stories
 
 curr=0

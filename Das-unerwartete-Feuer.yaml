@@ -1,0 +1,23 @@
+﻿info: Nach jeden Doppelpunkt muss ein Leerzeichen sein.
+metadaten:
+  Hersteller: Schreibwerkstatt 
+  Datum:
+Das unerwartete Feuer:
+  message: An einem Tag wanderte ein Pferd an einen Weiher. Dort traf es ein Fisch. Sie freundeten sich an und liefen zusammen weiter. Dann sahen sie ein Schloss. Sie liefen hinein, um es zu erkunden. Sie schauten sich um, fanden aber nichts Interessantes. Also gingen wieder raus. Auf einmal sahen sie ein verlassenes Haus und gingen hinein. Doch dort fanden sie auch nichts Wertvolles. Als sie raus wollten, kam plötzlich gang, ganz viel Feuer aus dem Kamin.
+  question: Sollen sie das Feuer löschen?
+  actions:
+  - label: Feuer löschen
+    next: Feuer loeschen
+  - label: Feuer nicht löschen
+    next: Nicht
+Feuer loeschen:
+  message: Sie fanden eine Feuerlöscher und löschten damit das Feuer. Dann verließen sie das Haus und gingen weiter. Nach einiger Zeit fanden sie einen Brief auf dem Boden. Als sie den Brief öffneten, fanden sie darin einen Diamanten. Sie waren sehr geschockt, aber dabei auch glücklich. Nun waren sie reich.
+  actions:
+  - label: Das Spiel ist zu ende
+    next: ende
+
+Nicht:
+  message: Panisch rannten die beiden ganz schnell raus. Sie liefen schnell von dem brennenden Haus weg. Und dann war plötzlich ein Brief auf dem Boden. Sie öffneten ihn, aber da war nichts drin. Sie suchten weiter, fanden aber nichts mehr.  Beide waren traurig und liefen wieder zurück nach Hause. Beide hatten heute zumindest einen neuen Freund gefunden. ende
+  actions: 
+  - label: Das Spiel beenden
+    next: ende

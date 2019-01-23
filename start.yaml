@@ -5,22 +5,22 @@ start:
   message: Herzlich Wilkommen zu Grimms Kiste
   question: Welche Geschichte möchtst du Erleben?
   actions:
-  - label: Harry Potter
-    next: HP1
-  - label: Herr der Ringe
-    next: HdR1
-  - label: Eragon
-    next: ER1
+  - label: Das Baby ist verschwunden
+    next: Das Baby ist verschwunden
+  - label: Das unerwartete Feuer
+    next: Das unerwartete Feuer
+  - label: Ein erfolgreicher Tag
+    next: Ein erfolgreicher Tag
   - label: Mehr Geschichten
     next: S2
 S2:
-  message: Geschichten 4-6
+  message: Geschichten 4-5
   question: Welche Geschichte möchtest du Erleben?
   actions:
-  - label:
-    next:
-  - label:
-    next:
+  - label: Ein Hund namens Bello
+    next: Ein Hund namens Bello
+  - label: Nur mal kurz die Welt retten
+    next: Nur mal kurz die Welt retten
   - label: Zurück zu den ersten Geschichten
     next: start
 

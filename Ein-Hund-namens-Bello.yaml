@@ -1,0 +1,38 @@
+﻿info: Nach jeden Doppelpunkt muss ein Leerzeichen sein.
+metadaten:
+  Hersteller: Schreibwerkstatt
+  Datum: 09.11.2018
+Ein Hund namens Bello:
+  message: Es war einmal ein Hund namens Bello. Dieser wohnte in einem großen Haus und spielte jeden Tag mit seinem Lieblingsball. Heute kann er ihn allerdings nirgendwo finden. Deswegen machte er sich auf die Suche danach. Im Haus sah er links eine Handtasche auf dem Wohnzimmertisch liegen und rechts begegnete er einem verletzten Mann.
+  actions:
+  - label: Er nimmt die Handtasche
+    next: HT
+  - label: Er spricht mit dem verletzten Mann
+    next: Mann
+
+Mann:
+  message: Er fragt ihn, ob er seinen Ball irgendwo gesehen haben könnte. "Ja, ich habe deinen Ball gesehen. Er liegt im Garten", antwortet der verletzte Mann. Bello macht sich natürlich sofort auf den Weg in den Garten.
+  actions:
+  - label: Spiel zu Ende
+    next: ende
+
+HT:
+  message: In der Handtasche findet er einen Elektroschocker, Schminke, Geld und den Hausschlüssel. Eine kurze Zeit überlegt Bello, was ihm davon wohl etwas nützen könnte.
+  actions:
+  - label: Er entscheidet sich dazu den Elektroschocker zu fressen.
+    next: Fressen
+  - label: Er nimmt den Elektroschocker erst einmal mit.
+    next: Nehmen
+
+Fressen:
+  message: Er bekommt durch den Elektroschocker Blitzkräft und bekämpft damit alles Böse in der Welt und in seiner Nachbarschaft. Er ist nur noch als Bello, der Superhund, bekannt. Als Belohnung erhält Bello ganz viele Bälle, mit denen er viel spielt.
+  actions:
+  - label: Spiel beenden
+    next: ende
+
+Nehmen:
+  message: Im Haus konnte Bello seinen Lieblingsball nicht mehr finden, also beschließt er im Garten weiter zu suchen. Auf dem Weg über den Rasen bemerkt Bello, dass der Rasenmäher komische Kreise fährt und ihm dabei immer näher kommt. Bello bemerkt, dass vor dem Rasenmäher ein kleiner Igel voller Panik davonläuft. Ohne zu zögern greift Bello zum Elektroschocker und schlägt auf den Rasenmäher ein. Er bekämpft den Rasenmäher erfolgreich und rettet den Igel. Der sich dankend davonmacht. Er macht sich wieder auf die Suche nach seinem Lieblingsball.
+  actions:
+  - label: Spiel beenden
+    next: ende
+
