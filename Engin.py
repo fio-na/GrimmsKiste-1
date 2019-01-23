@@ -30,6 +30,7 @@ stories.update(C1)
 story = stories
 
 curr=0
+sec_druck = 0
 
 """GPIO.setmode(GPIO.BCM)
 GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -37,11 +38,11 @@ GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 #GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)"""
 
-button1 = Button(5, hold_time=0.6)
-button2 = Button(6, hold_time=0.6)
-button3 = Button(13, hold_time=0.6)
-#button3 = Button(13, hold_time=0.1)
-button4 = Button(19, hold_time=0.6)
+button1 = Button(5, hold_time=0.25)
+button2 = Button(6, hold_time=0.25)
+#button3 = Button(13, hold_time=0.4)
+button3 = Button(13, hold_time=0.25)
+button4 = Button(19, hold_time=0.25)
 
 #fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
 #yaml.dump(os.getpid(), fp, indent=1)
@@ -93,23 +94,46 @@ def callback_4(channel):
         curr=4"""
 
 def callback_1():
+    global curr
     sec = time.time()
     log.write("{}, : gedrückt 1\n".format(sec))
+    a = check_time_since_last_push_of_a_button()
+    if a>2:
+        curr=1
 
 def callback_2():
+    global curr
     sec = time.time()
     log.write("{}, : gedrückt 2\n".format(sec))
+    a = check_time_since_last_push_of_a_button()
+    if a>2:
+        curr=2
 
 def callback_3():
-    global button3
-    sec = time.time()
-    log.write("{}, : gedrückt 3\n".format(sec))
-    dauer = button3.active_time
-    log.write("active_time: {}\n".format(dauer))
+    global sec_druck
+    global curr
+    sec_druck = time.time()
+    log.write("{}, : gedrückt 3\n".format(sec_druck))
+    #dauer = button3.active_time
+    #log.write("active_time: {}\n".format(dauer))
+    a = check_time_since_last_push_of_a_button()
+    if a>2:
+        curr=3
+
+def callback_3b():
+    global sec_druck
+    sec_los = time.time()
+    log.write("{}, : losgelassen 3\n".format(sec_los))
+    sec_gesamt = sec_los - sec_druck
+    log.write("{}, : druckdauer 3\n".format(sec_gesamt))
 
 def callback_4():
+    global curr
     sec = time.time()
     log.write("{}, : gedrückt 4\n".format(sec))
+    a = check_time_since_last_push_of_a_button()
+    if a>2:
+        curr=4
 
 """GPIO.add_event_detect(5, GPIO.RISING, callback=callback_1, bouncetime=200)
 GPIO.add_event_detect(6, GPIO.RISING, callback=callback_2, bouncetime=1000)
@@ -120,6 +144,7 @@ button1.when_held = callback_1
 button2.when_held = callback_2
 button3.when_held = callback_3
 #button3.when_pressed = callback_3
+#button3.when_released = callback_3b
 button4.when_held = callback_4
 
 """def send_to_printer2(text_to_print, type_of_printing):
@@ -174,10 +199,13 @@ def processState(state):
         send_to_printer_old(state["question"])
     else: send_to_printer_old(story["_default_question"])
 
-    while True:
+    action = requestAction(state["actions"])
+    return story[action["next"]]
+
+    """while True:
         action = requestAction(state["actions"])
         if action["next"] in story:
-            return story[action["next"]]
+            return story[action["next"]]"""
 
 def requestAction(actions):
     global curr
@@ -195,13 +223,20 @@ def requestAction(actions):
         elif curr == 0:
             global last
         last = 0"""
-        choice = curr - 1
-        if 0 <= choice < len(actions):
-            curr = 0
-            if choice in actions:
+        #choice = curr - 1
+        try:
+            choice = curr - 1
+            if 0 <= choice < len(actions):
+                curr = 0
                 return actions[choice]
+            """if choice in actions:
+                return actions[choice]"""
+        except:
+            time.sleep(0.01)
+            pass
+            #signal.pause()
         #time.sleep(0.01)
-        signal.pause()
+        #signal.pause()
         '''elif choice > len(actions):
             global start_time
             print("ich wurde gedrückt")'''
