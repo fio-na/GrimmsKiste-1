@@ -17,7 +17,7 @@ Tee:
     next: Bohr
 
 Bohr:
-  message: Bohrmaschinen lassen sich in Drogenstadt gut verkaufen. Du konntest 3 Bohrmaschinen verkaufen, um sich endlich eine Fortnight-Gleiter zu kaufen, um nach Fox zu fliegen. Dort angekommen überlistest du die Entführer und rettest deinen Sohn Steve. Glücklich kehrst du mit deinem Baby zurück nach Drogenstadt. Irgendwas stimmte mit den Handwerkern nicht... Jetzt wusster der Vater, warum die Bohrmaschinen so teuer waren.
+  message: Bohrmaschinen lassen sich in Drogenstadt gut verkaufen. Du konntest 3 Bohrmaschinen verkaufen, um dir endlich eine Fortnight-Gleiter zu kaufen, um nach Fox zu fliegen. Dort angekommen überlistest du die Entführer und rettest deinen Sohn Steve. Glücklich kehrst du mit deinem Baby zurück nach Drogenstadt. Irgendwas stimmte mit den Handwerkern nicht... Jetzt wusster der Vater, warum die Bohrmaschinen so teuer waren.
   actions:
   - label: Spiel beenden 
     next: ende

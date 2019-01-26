@@ -13,6 +13,8 @@ import signal
 fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
 yaml.dump(os.getpid(), fp, indent=1)
 
+#print_file = open("/home/pi/Documents/print_file.txt", mode="w", encoding="utf8")
+
 log = open("/home/pi/engine.log", mode="a", encoding="utf8", buffering=1)
 log.write("Neustart\n")
 
@@ -176,13 +178,16 @@ button4.when_held = callback_4
         lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc", "-o", "PageType=1Fixed"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         lpr.communicate("|".encode("utf-8"))"""
 
-def send_to_printer_old(text_to_print):
+def send_to_printer_old():
     formatted_text = format_text(text_to_print)
     print(formatted_text)
     for i in formatted_text:
         print(i)
         lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc"], stdin=subprocess.PIPE)
         lpr.communicate(i.encode("utf-8"))
+    #log.write("{}".format(text_to_print))
+    #format_text(text_to_print)
+    #subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc", "/home/pi/Documents/print_file.txt"])
 
 def send_to_printer_with_cut(text_to_print):
     lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
@@ -194,19 +199,31 @@ def print_empty_lines():
 
 def format_text(text_to_print):
     formatted_text = textwrap.wrap(text_to_print, 28)
+    log.write("{}".format(formatted_text))
+    #print_file.write("hello")
     return formatted_text
+    """with open("/home/pi/Documents/print_file.txt", mode="w", encoding="utf8") as print_file:
+        for i in formatted_text:
+            print_file.write("{}\n".format(i))
+            #print_file.flush()
+            log.write("{}".format(i))"""
 
 def processState(state):
     if state == story["ende"]:
-        send_to_printer_old(state["message"])
+        #format_text(state["message"])
+        send_to_printer_old()
         send_to_printer_with_cut(80 * "-")
     else:
-        send_to_printer_old(state["message"])
+        #format_text(state["message"])
+        send_to_printer_old()
     if not "actions" in state:
         return None
     if "question" in state:
-        send_to_printer_old(state["question"])
-    else: send_to_printer_old(story["_default_question"])
+        #format_text(state["question"])
+        send_to_printer_old()
+    else:
+        #format_text(story["_default_question"])
+        send_to_printer_old()
 
     action = requestAction(state["actions"])
     return story[action["next"]]
@@ -220,10 +237,14 @@ def requestAction(actions):
     global curr
     for i, action in (enumerate(state["actions"], start=1)):
         if i == len(state["actions"]):
-            send_to_printer_old("({}) {}".format(i, action["label"]))
+            format_text("({}) {}".format(i, action["label"]))
+            send_to_printer_old()
             print_empty_lines()
         else:
-            send_to_printer_old("({}) {}".format(i, action["label"]))
+            format_text("({}) {}".format(i, action["label"]))
+        format_text("({}) {}".format(i, action["label"]))
+    #send_to_printer_old()
+    #print_empty_lines()
     while True:
         """global curr
         global last
@@ -252,7 +273,8 @@ def requestAction(actions):
 
 
 send_to_printer_with_cut(28 * "-")
-send_to_printer_old("Grimms Kiste".center(80, "-"))
+format_text("Grimms Kiste".center(80, "-"))
+send_to_printer_old()
 last = 0
 
 state = story["start"]
