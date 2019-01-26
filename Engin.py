@@ -7,40 +7,35 @@ import time
 from gpiozero import Button
 import signal
 
-fp = open("/tmp/pid.yaml", mode="w", encoding="utf8")
-yaml.dump(os.getpid(), fp, indent=1)
+with open("/tmp/pid.yaml", mode="w", encoding="utf8") as fp:
+    yaml.dump(os.getpid(), fp, indent=1)
 
 log = open("/home/pi/engine.log", mode="a", encoding="utf8", buffering=1)
 log.write("Neustart\n")
 
-stories = {}
-a = open("/home/pi/GrimmsKiste-1/start.yaml", mode="r", encoding="utf8")
-b = open("/home/pi/GrimmsKiste-1/Das-Baby-ist-verschwunden.yaml", mode="r", encoding="utf8")
-c = open("/home/pi/GrimmsKiste-1/Das-unerwartete-Feuer.yaml", mode="r", encoding="utf8")
-d = open("/home/pi/GrimmsKiste-1/Ein-erfolgreicher-Tag.yaml", mode="r", encoding="utf8")
-e = open("/home/pi/GrimmsKiste-1/Ein-Hund-namens-Bello.yaml", mode="r", encoding="utf8")
-#f = open("/home/pi/GrimmsKiste-1/Nur-mal-kurz-die-Welt-retten.yaml", mode="r", encoding="utf8")
+story = {}
 
-A1 = yaml.load(a)
-B1 = yaml.load(b)
-C1 = yaml.load(c)
-D1 = yaml.load(d)
-E1 = yaml.load(e)
-#F1 = yaml.load(f)
-stories.update(A1)
-stories.update(B1)
-stories.update(C1)
-stories.update(D1)
-stories.update(E1)
-#stories.update(F1)
-story = stories
+filelist = ["/home/pi/GrimmsKiste-1/start.yaml",
+            "/home/pi/GrimmsKiste-1/Das-Baby-ist-verschwunden.yaml",
+            "/home/pi/GrimmsKiste-1/Das-unerwartete-Feuer.yaml",
+            "/home/pi/GrimmsKiste-1/Ein-erfolgreicher-Tag.yaml",
+            "/home/pi/GrimmsKiste-1/Ein-Hund-namens-Bello.yaml",
+            #"/home/pi/GrimmsKiste-1/Nur-mal-kurz-die-Welt-retten.yaml"
+            ]
+
+for file in filelist:
+    with open(file, mode="r", encoding="utf8") as f:
+        story_data = yaml.load(f)
+        story.update(story_data)
 
 curr=0
 
-button1 = Button(5, hold_time=0.25)
-button2 = Button(6, hold_time=0.25)
-button3 = Button(13, hold_time=0.25)
-button4 = Button(19, hold_time=0.25)
+hold_time = 0.15
+
+button1 = Button(5, hold_time)
+button2 = Button(6, hold_time)
+button3 = Button(13, hold_time)
+button4 = Button(19, hold_time)
 
 global start_time
 start_time = time.time() - 2
@@ -94,40 +89,41 @@ def send_to_printer_old(text_to_print):
     lpr = subprocess.Popen(["/usr/bin/lp", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc"], stdin=subprocess.PIPE)
     lpr.communicate(formatted_text.encode("utf-8"))
 
+def send_list_to_printer(texts_to_print):
+    texts_to_print.extend("." for _ in range(7))
+    formatted_text = [format_text(i) for i in texts_to_print]
+    joined_texts = ["\n".join(i) for i in formatted_text]
+    final_texts = "\n".join(joined_texts)
+    lpr = subprocess.Popen(["/usr/bin/lp", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc"], stdin=subprocess.PIPE)
+    lpr.communicate(final_texts.encode("utf-8"))
+
 def send_to_printer_with_cut(text_to_print):
     lpr = subprocess.Popen("/usr/bin/lp", stdin=subprocess.PIPE)
     lpr.communicate(text_to_print.encode("utf-8"))
 
-def print_empty_lines():
-    lpr = subprocess.Popen(["/usr/bin/lp", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc", "-o", "PageType=1Fixed"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    lpr.communicate("|".encode("utf-8"))
-
 def format_text(text_to_print):
-    formatted_text = textwrap.wrap(text_to_print, 28)
-    return formatted_text
+    return textwrap.wrap(text_to_print, 28)
 
 def processState(state):
     if state == story["ende"]:
         send_to_printer_old(state["message"])
-        send_to_printer_with_cut(80 * "-")
+        for_printing = [state["message"]]
+        send_to_printer_with_cut(28 * "-")
     else:
         send_to_printer_old(state["message"])
     if not "actions" in state:
         return None
     if "question" in state:
         send_to_printer_old(state["question"])
-    else: send_to_printer_old(story["_default_question"])
+    else:
+        send_to_printer_old(story["_default_question"])
     action = requestAction(state["actions"])
     return story[action["next"]]
 
 def requestAction(actions):
     global curr
-    for i, action in (enumerate(state["actions"], start=1)):
-        if i == len(state["actions"]):
-            send_to_printer_old("({}) {}".format(i, action["label"]))
-            print_empty_lines()
-        else:
-            send_to_printer_old("({}) {}".format(i, action["label"]))
+    options_list = ["({}) {}".format(i, action["label"]) for i, action in enumerate(state["actions"], start=1)]
+    send_list_to_printer(options_list)
     while True:
         try:
             choice = curr - 1
@@ -139,8 +135,14 @@ def requestAction(actions):
             pass
 
 
+def print_header():
+
+
+def
+
+
 send_to_printer_with_cut(28 * "-")
-send_to_printer_old("Grimms Kiste".center(80, "-"))
+send_to_printer_old("Grimms Kiste".center(84, "-"))
 last = 0
 
 state = story["start"]
