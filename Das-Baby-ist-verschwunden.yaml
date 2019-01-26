@@ -5,7 +5,7 @@ metadaten:
 Das Baby ist verschwunden:
   message: Es war einmal ein regnerischer Tag. Du bist vor kurzem Vater geworden. Allerdings ist dein frisch gewonnenes Glück nicht von Dauer. Steve, dein Sohn, wird eines Tages in Fox entführt. Die Entführer melden sich bei dir und verlangen Geld, damit du Steve wohlbehalten zurückbekommst. Du musst ganz schnell an Geld kommen und überlegst, was du wohl eher tun solltest.
   actions:
-  - label: Du verkaufst schwarzen Tee
+  - label: Du verkaufst schwarzen Tee.
     next: Tee
   - label: Du verkaufst Bohrmaschinen für 2547€/Stück.
     next: Bohr

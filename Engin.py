@@ -177,19 +177,21 @@ button4.when_held = callback_4
         lpr.communicate("|".encode("utf-8"))"""
 
 def send_to_printer_old(text_to_print):
-    formatted_text = format_text(text_to_print)
-    print(formatted_text)
-    for i in formatted_text:
-        print(i)
-        lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc"], stdin=subprocess.PIPE)
-        lpr.communicate(i.encode("utf-8"))
+    formatted_text = "\n".join(format_text(text_to_print))
+    lpr = subprocess.Popen(["/usr/bin/lp", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc"], stdin=subprocess.PIPE)
+    lpr.communicate(formatted_text.encode("utf-8"))
+    #print(formatted_text)
+    #for i in formatted_text:
+     #   print(i)
+      #  lpr = subprocess.Popen(["/usr/bin/lp", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc"], stdin=subprocess.PIPE)
+       # lpr.communicate(i.encode("utf-8"))
 
 def send_to_printer_with_cut(text_to_print):
-    lpr = subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
+    lpr = subprocess.Popen("/usr/bin/lp", stdin=subprocess.PIPE)
     lpr.communicate(text_to_print.encode("utf-8"))
 
 def print_empty_lines():
-    lpr = subprocess.Popen(["/usr/bin/lpr", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc", "-o", "PageType=1Fixed"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    lpr = subprocess.Popen(["/usr/bin/lp", "-o", "PageCutType=0NoCutPage", "-o", "DocCutType=0NoCutDoc", "-o", "PageType=1Fixed"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     lpr.communicate("|".encode("utf-8"))
 
 def format_text(text_to_print):
