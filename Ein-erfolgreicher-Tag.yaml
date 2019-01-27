@@ -12,11 +12,5 @@ Ein erfolgreicher Tag:
     next: Nicht ansprechen
 Person: 
   message: Das Pferd sprach die Person und fragte nach Informationen über einen Diamanten. Denn es sammelt gerne glitzernde Dinge. Und tatsächich hatte die Person Informationen. Sie gingen zusammen weiter und suchten den Diamant, aber fanden ihn dann leider doch nicht.
-  actions:
-  - label: Damit ist das Spiel zu ende
-    next: ende
 Nicht ansprechen: 
   message: Das Pferd sprach die Person nicht und ist weiter gelaufen. Dann fand es ein Zelt. Dort ruhte es sich aus. Am nächsten Morgen lag dort ein Diamant. Das Pferd liebte glitzernde Dinge und war sehr glücklich über den Fund.nem neuen Schatz nach Hause.
-  actions:
-  - label: Damit ist das Spiel zu ende
-    next: ende
