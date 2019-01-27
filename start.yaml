@@ -2,8 +2,8 @@
 _default_question: Was möchtest du tun?
 _prompt: 'Deine Wahl: '
 start:
-  message: Herzlich Wilkommen zu Grimms Kiste
-  question: Welche Geschichte möchtst du Erleben?
+  message: Herzlich Willkommen zu Grimms Kiste
+  question: Welche Geschichte möchtest du erleben?
   actions:
   - label: Das Baby ist verschwunden
     next: Das Baby ist verschwunden
@@ -11,6 +11,8 @@ start:
     next: Das unerwartete Feuer
   - label: Ein erfolgreicher Tag
     next: Ein erfolgreicher Tag
+
+
   - label: Mehr Geschichten
     next: S2
 S2:
