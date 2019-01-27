@@ -3,7 +3,8 @@ metadaten:
   Hersteller: Schreibwerkstatt
   Datum: 09.11.2018
 Nur mal kurz die Welt retten:
-  message: Es war einmal ein unheilvoller Sturm. Der Sturm war so schlimm, dass er einen Wal an den Strand gespühlt hat. Urplötzlich kam aus einem Nebelfeld ein Alien an dem gestrandeten Wal vorbei. Der Wal fragte den Alien{{ ":" }} "Könntest du mir helfen wieder ins Wasser zu kommen?"
+  message: >
+    Es war einmal ein unheilvoller Sturm. Der Sturm war so schlimm, dass er einen Wal an den Strand gespühlt hat. Urplötzlich kam aus einem Nebelfeld ein Alien an dem gestrandeten Wal vorbei. Der Wal fragte den Alien: "Könntest du mir helfen wieder ins Wasser zu kommen?"
   actions:
   - label: Alien hilft
     next: H
@@ -14,7 +15,8 @@ N:
   message: Der Alien interessiert sich nicht für den Wal und läuft einfach vorbei. Der Sturm wurde immer schlimmer und verwandelte sich in ein Gewitter. Der Regen wurde so stark, sodass der Strand überflutet wurde und der Wal zurück ins Wasser schwimmen konnte.
 
 H:
-  message: Der Alien antwortet{":"} "Na, klar". Also nimmt er ganz viel Wasser aus dem Meer und versucht den Wal wieder ins Meer zu spülen. Dies gelingt ihm nach mehreren Anläufen. Der Wal sagt{{":"}} "Vielen Dank. Kann ich dir irgendwie helfen?" Der Alien sagt{{":"}} "Ja, ich brauche ganz dringend deine Hilfe Es gibt eine Bombe, die wir schnell entschärfen sollten." Der Wal holt ganz schnell ein paar Fische zur Hilfe hinzu. Auf der Bombe liegt ein Zettel, auf dem ein Mathe-Rätsel steht. Dieses Rätsel versuchen der Wal, die Fische und der Alien zu lösen{{":"}} 5 x 4 - 3 =
+  message: >
+    Der Alien antwortet: "Na, klar". Also nimmt er ganz viel Wasser aus dem Meer und versucht den Wal wieder ins Meer zu spülen. Dies gelingt ihm nach mehreren Anläufen. Der Wal sagt: "Vielen Dank. Kann ich dir irgendwie helfen?" Der Alien sagt: "Ja, ich brauche ganz dringend deine Hilfe Es gibt eine Bombe, die wir schnell entschärfen sollten." Der Wal holt ganz schnell ein paar Fische zur Hilfe hinzu. Auf der Bombe liegt ein Zettel, auf dem ein Mathe-Rätsel steht. Dieses Rätsel versuchen der Wal, die Fische und der Alien zu lösen: 5 x 4 - 3 =
   actions:
   - label: 17
     next: R
