@@ -16,7 +16,7 @@ N:
 
 H:
   message: >
-    Der Alien antwortet: "Na, klar". Also nimmt er ganz viel Wasser aus dem Meer und versucht den Wal wieder ins Meer zu spülen. Dies gelingt ihm nach mehreren Anläufen. Der Wal sagt: "Vielen Dank. Kann ich dir irgendwie helfen?" Der Alien sagt: "Ja, ich brauche ganz dringend deine Hilfe Es gibt eine Bombe, die wir schnell entschärfen sollten." Der Wal holt ganz schnell ein paar Fische zur Hilfe hinzu. Auf der Bombe liegt ein Zettel, auf dem ein Mathe-Rätsel steht. Dieses Rätsel versuchen der Wal, die Fische und der Alien zu lösen: 5 x 4 - 3 =
+    "Na, klar", antwortet der Alien. Also nimmt er ganz viel Wasser aus dem Meer und versucht den Wal wieder ins Meer zu spülen. Dies gelingt ihm nach mehreren Anläufen. Der Wal sagt: "Vielen Dank. Kann ich dir irgendwie helfen?" Der Alien sagt: "Ja, ich brauche ganz dringend deine Hilfe Es gibt eine Bombe, die wir schnell entschärfen sollten." Der Wal holt ganz schnell ein paar Fische zur Hilfe hinzu. Auf der Bombe liegt ein Zettel, auf dem ein Mathe-Rätsel steht. Dieses Rätsel versuchen der Wal, die Fische und der Alien zu lösen: 5 x 4 - 3 =
   actions:
   - label: 17
     next: R
