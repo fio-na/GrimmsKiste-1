@@ -5,10 +5,11 @@ metadaten:
 Nur mal kurz die Welt retten:
   message: >
     Es war einmal ein unheilvoller Sturm. Der Sturm war so schlimm, dass er einen Wal an den Strand gespühlt hat. Urplötzlich kam aus einem Nebelfeld ein Alien an dem gestrandeten Wal vorbei. Der Wal fragte den Alien: "Könntest du mir helfen wieder ins Wasser zu kommen?"
+  question: Was macht das Alien?
   actions:
-  - label: Alien hilft
+  - label: Der Alien hilft
     next: H
-  - label: Alien hilft nicht
+  - label: Der Alien hilft nicht
     next: N
 
 N:
@@ -16,7 +17,8 @@ N:
 
 H:
   message: >
-    "Na, klar", antwortet der Alien. Also nimmt er ganz viel Wasser aus dem Meer und versucht den Wal wieder ins Meer zu spülen. Dies gelingt ihm nach mehreren Anläufen. Der Wal sagt: "Vielen Dank. Kann ich dir irgendwie helfen?" Der Alien sagt: "Ja, ich brauche ganz dringend deine Hilfe Es gibt eine Bombe, die wir schnell entschärfen sollten." Der Wal holt ganz schnell ein paar Fische zur Hilfe hinzu. Auf der Bombe liegt ein Zettel, auf dem ein Mathe-Rätsel steht. Dieses Rätsel versuchen der Wal, die Fische und der Alien zu lösen: 5 x 4 - 3 =
+    "Na, klar", antwortet der Alien. Also nimmt er ganz viel Wasser aus dem Meer und versucht den Wal wieder ins Meer zu spülen. Dies gelingt ihm nach mehreren Anläufen. Der Wal sagt: "Vielen Dank. Kann ich dir irgendwie helfen?" Der Alien sagt: "Ja, ich brauche ganz dringend deine Hilfe. Es gibt eine Bombe, die wir schnell entschärfen sollten." Der Wal holt ganz schnell ein paar Fische zur Hilfe hinzu. Auf der Bombe liegt ein Zettel, auf dem ein Mathe-Rätsel steht. Dieses Rätsel versuchen der Wal, die Fische und der Alien zu lösen: 5 x 4 - 3 =
+  question: Wie lautet die Lösung?
   actions:
   - label: 17
     next: R

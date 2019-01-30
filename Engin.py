@@ -11,7 +11,7 @@ with open("/tmp/pid.yaml", mode="w", encoding="utf8") as fp:
     yaml.dump(os.getpid(), fp, indent=1)
 
 log = open("/home/pi/engine.log", mode="a", encoding="utf8", buffering=1)
-log.write("Neustart\n")
+log.write("restart\n")
 
 story = {}
 
@@ -30,52 +30,64 @@ for file in filelist:
 
 hold_time = 0.2
 
-button1 = Button(5, hold_time)
-button2 = Button(6, hold_time)
-button3 = Button(13, hold_time)
-button4 = Button(19, hold_time)
+button1 = Button(5, hold_time=hold_time)
+button2 = Button(6, hold_time=hold_time)
+button3 = Button(13, hold_time=hold_time)
+button4 = Button(19, hold_time=hold_time)
 
 global start_time
-start_time = time.time() - 1
+start_time = time.time() - 1.7
 
 def check_time_since_last_push_of_a_button():
     global start_time
-    end_time = time.time()
-    a = end_time - start_time
-    start_time = end_time
-    return a
+    push_time = time.time()
+    secs_since_last_push = push_time - start_time
+    start_time = push_time
+    return secs_since_last_push
 
 def callback_1():
     sec = time.time()
-    log.write("{}, : gedrückt 2\n".format(sec))
+    log.write("{}, : pushed 1\n".format(sec))
     a = check_time_since_last_push_of_a_button()
-    if a>1:
+    if a>1.7:
         current_action = state["actions"]
-        process_state(current_action, 0)
+        if len(current_action) >= 1:
+            process_state(current_action, 0)
+        else:
+            pass
 
 def callback_2():
     sec = time.time()
-    log.write("{}, : gedrückt 2\n".format(sec))
+    log.write("{}, : pushed 2\n".format(sec))
     a = check_time_since_last_push_of_a_button()
-    if a>1:
+    if a>1.7:
         current_action = state["actions"]
-        process_state(current_action, 1)
+        if len(current_action) >= 2:
+            process_state(current_action, 1)
+        else:
+            pass
 
 def callback_3():
     sec = time.time()
-    log.write("{}, : gedrückt 3\n".format(sec))
+    log.write("{}, : pushed 3\n".format(sec))
     a = check_time_since_last_push_of_a_button()
-    if a>1:
+    if a>1.7:
         current_action = state["actions"]
-        process_state(current_action, 2)
+        if len(current_action) >= 3:
+            process_state(current_action, 2)
+        else:
+            pass
 
 def callback_4():
     sec = time.time()
-    log.write("{}, : gedrückt 4\n".format(sec))
+    log.write("{}, : pushed 4\n".format(sec))
     a = check_time_since_last_push_of_a_button()
-    if a>1:
+    if a>1.7:
         current_action = state["actions"]
-        process_state(current_action, 3)
+        if len(current_action) >= 4:
+            process_state(current_action, 3)
+        else:
+            pass
 
 button1.when_held = callback_1
 button2.when_held = callback_2
@@ -117,7 +129,7 @@ def print_current_state(current_state):
         list_for_printing.extend(["({}) {}".format(i, action["label"]) for i, action in enumerate(current_state["actions"], start=1)])
     else:
         del list_for_printing[-1]
-        list_for_printing.append("Damit ist das Spiel zu Ende.")
+        list_for_printing.append("Damit ist die Geschichte zu Ende.")
     send_list_to_printer(list_for_printing)
 
 def process_state(chosen_action, button):
@@ -130,8 +142,7 @@ state = story["start"]
 
 print_header()
 print_current_state(state)
-#while state != story["ende"]:
- #   time.sleep(0.5)
 while "actions" in state:
     time.sleep(0.5)
 send_to_printer_with_cut(28 * "-")
+time.sleep(3.5)

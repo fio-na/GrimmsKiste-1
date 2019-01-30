@@ -4,6 +4,7 @@ metadaten:
   Datum: 09.11.2018
 Ein Hund namens Bello:
   message: Es war einmal ein Hund namens Bello. Dieser wohnte in einem großen Haus und spielte jeden Tag mit seinem Lieblingsball. Heute kann er ihn allerdings nirgendwo finden. Deswegen machte er sich auf die Suche danach. Im Haus sah er links eine Handtasche auf dem Wohnzimmertisch liegen und rechts begegnete er einem verletzten Mann.
+  question: Was soll Bello tun?
   actions:
   - label: Er nimmt die Handtasche
     next: HT
@@ -12,9 +13,14 @@ Ein Hund namens Bello:
 
 Mann:
   message: Er fragt ihn, ob er seinen Ball irgendwo gesehen haben könnte. "Ja, ich habe deinen Ball gesehen. Er liegt im Garten", antwortet der verletzte Mann. Bello macht sich natürlich sofort auf den Weg in den Garten.
+  question: Was soll Bello tun?
+  actions:
+  - label: Im Garten suchen
+    next: E
 
 HT:
   message: In der Handtasche findet er einen Elektroschocker, Schminke, Geld und den Hausschlüssel. Eine kurze Zeit überlegt Bello, was ihm davon wohl etwas nützen könnte.
+  question: Was soll Bello tun?
   actions:
   - label: Er entscheidet sich dazu den Elektroschocker zu fressen.
     next: Fressen
@@ -25,5 +31,11 @@ Fressen:
   message: Er bekommt durch den Elektroschocker Blitzkräft und bekämpft damit alles Böse in der Welt und in seiner Nachbarschaft. Er ist nur noch als Bello, der Superhund, bekannt. Als Belohnung erhält Bello ganz viele Bälle, mit denen er viel spielt.
 
 Nehmen:
-  message: Im Haus konnte Bello seinen Lieblingsball nicht mehr finden, also beschließt er im Garten weiter zu suchen. Auf dem Weg über den Rasen bemerkt Bello, dass der Rasenmäher komische Kreise fährt und ihm dabei immer näher kommt. Bello bemerkt, dass vor dem Rasenmäher ein kleiner Igel voller Panik davonläuft. Ohne zu zögern greift Bello zum Elektroschocker und schlägt auf den Rasenmäher ein. Er bekämpft den Rasenmäher erfolgreich und rettet den Igel. Der sich dankend davonmacht. Er macht sich wieder auf die Suche nach seinem Lieblingsball.
+  message: Im Haus konnte Bello seinen Lieblingsball nicht mehr finden, also beschließt er im Garten weiter zu suchen. Auf dem Weg über den Rasen bemerkt Bello, dass der Rasenmäher komische Kreise fährt und ihm dabei immer näher kommt. Bello bemerkt, dass vor dem Rasenmäher ein kleiner Igel voller Panik davonläuft. Ohne zu zögern greift Bello zum Elektroschocker und schlägt auf den Rasenmäher ein. Er bekämpft den Rasenmäher erfolgreich und rettet den Igel. Dieser macht sich dankend davon. Bello macht sich wieder auf die Suche nach seinem Lieblingsball.
+  question: Was soll Bello tun?
+  actions:
+  - label: Weitersuchen
+    next: E
 
+E:
+  message: In der hintersten Ecke im Garten findet er den Ball unter einer Pflanze versteckt. Nun da er seinen Lieblingsball gefunden hat, spielt er ein bisschen mit dem Ball.

@@ -3,7 +3,7 @@ metadaten:
   Hersteller: Schreibwerkstatt 
   Datum:
 Das unerwartete Feuer:
-  message: An einem Tag wanderte ein Pferd an einen Weiher. Dort traf es einen Fisch. Sie freundeten sich an und liefen zusammen weiter. Dann sahen sie ein Schloss. Sie liefen hinein, um es zu erkunden. Sie schauten sich um, fanden aber nichts Interessantes. Also gingen wieder raus. Auf einmal sahen sie ein verlassenes Haus und gingen hinein. Doch dort fanden sie auch nichts Wertvolles. Als sie raus wollten, kam plötzlich gang, ganz viel Feuer aus dem Kamin.
+  message: An einem Tag wanderte ein Pferd an einen Weiher. Dort traf es einen Fisch. Sie freundeten sich an und liefen zusammen weiter. Dann sahen sie ein Schloss. Sie liefen hinein, um es zu erkunden. Sie schauten sich um, fanden aber nichts Interessantes. Also gingen sie wieder raus. Auf einmal sahen sie ein verlassenes Haus und gingen hinein. Doch dort fanden sie auch nichts Wertvolles. Als sie raus wollten, kam plötzlich ganz, ganz viel Feuer aus dem Kamin.
   question: Sollen sie das Feuer löschen?
   actions:
   - label: Feuer löschen
