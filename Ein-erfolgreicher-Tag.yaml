@@ -11,6 +11,6 @@ Ein erfolgreicher Tag:
   - label: Person nicht ansprechen
     next: Nicht ansprechen
 Person: 
-  message: Das Pferd sprach die Person und fragte nach Informationen über einen Diamanten. Denn es sammelt gerne glitzernde Dinge. Und tatsächlich hatte die Person Informationen. Sie gingen zusammen weiter und suchten den Diamant, aber fanden ihn dann leider doch nicht.
+  message: Das Pferd sprach die Person an und fragte nach Informationen über einen Diamanten. Denn es sammelt gerne glitzernde Dinge. Und tatsächlich hatte die Person Informationen. Sie gingen zusammen weiter und suchten den Diamant, aber fanden ihn dann leider doch nicht.
 Nicht ansprechen: 
-  message: Das Pferd sprach die Person nicht an und ist weiter gelaufen. Dann fand es ein Zelt. Dort ruhte es sich aus. Am nächsten Morgen lag dort ein Diamant. Das Pferd liebte glitzernde Dinge und war sehr glücklich über den Fund und nahm den neuen Schatz mit nach Hause.
+  message: Das Pferd sprach die Person nicht an und lief weiter. Dann fand es ein Zelt. Dort ruhte es sich aus. Am nächsten Morgen lag dort ein Diamant. Das Pferd liebte glitzernde Dinge und war sehr glücklich über den Fund und nahm den neuen Schatz mit nach Hause.
