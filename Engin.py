@@ -10,13 +10,13 @@ from gpiozero import Button
 with open("/tmp/pid.yaml", mode="w", encoding="utf8") as fp:
     yaml.dump(os.getpid(), fp, indent=1)
 
-#use this log to control if the program has restarted or a button has been pushed
+#read this log to control if the program has restarted or a button has been pushed
 log = open("/home/pi/engine.log", mode="a", encoding="utf8", buffering=1)
 log.write("restart\n")
 
 story = {}
 
-#here you can add new stories, just add add a coma and the path to the story
+#here you can add new stories, just add add a comma and the path to the story
 filelist = ["/home/pi/GrimmsKiste-1/start.yaml",
             "/home/pi/GrimmsKiste-1/Das-Baby-ist-verschwunden.yaml",
             "/home/pi/GrimmsKiste-1/Das-unerwartete-Feuer.yaml",
@@ -163,5 +163,5 @@ while "actions" in state:
     #waiting for buttons being pushed
     time.sleep(0.5)
 send_to_printer_with_cut(28 * "-")
-#giving the reader some time to read the last part
+#giving the reader some time to read the last part before restarting
 time.sleep(3.5)
